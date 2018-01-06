@@ -21,6 +21,7 @@ class TestViewController : UIViewController {
         return v
     }()
     
+    private let mapView = MKMapView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,15 +41,48 @@ class TestViewController : UIViewController {
         contentView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         contentView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         
+        let location = CLLocationCoordinate2D(latitude: 32.7767, longitude: 96.7970)
+        let regionRadius: CLLocationDistance = CLLocationDistance(10000)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(mapView)
+        
+        let margins = contentView.layoutMarginsGuide
+        NSLayoutConstraint.activate([
+            mapView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            ])
+        
+        let guide = contentView.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraintEqualToSystemSpacingBelow(guide.topAnchor, multiplier: 1.0),
+            ])
+        
+        let constraint = NSLayoutConstraint(item: mapView,
+                                            attribute: NSLayoutAttribute.height,
+                                            relatedBy: NSLayoutRelation.equal,
+                                            toItem: view,
+                                            attribute: NSLayoutAttribute.height,
+                                            multiplier: 0.5,
+                                            constant: 0)
+        view.addConstraint(constraint)
+        
+        
+        
+        
+        
         capitalLabel.text = "Consider now provided laughter boy landlord dashwood. Often voice and the spoke. No shewing fertile village equally prepare up females as an. That do an case an what plan hour of paid. Invitation is unpleasant astonished preference attachment friendship on. Did sentiments increasing particular nay. Mr he recurred received prospect in. Wishing cheered parlors adapted am at amongst matters.\nConsider now provided laughter boy landlord dashwood. Often voice and the spoke. No shewing fertile village equally prepare up females as an. That do an case an what plan hour of paid. Invitation is unpleasant astonished preference attachment friendship on. Did sentiments increasing particular nay. Mr he recurred received prospect in. Wishing cheered parlors adapted am at amongst matters.Consider now provided laughter boy landlord dashwood. Often voice and the spoke. No shewing fertile village equally prepare up females as an. That do an case an what plan hour of paid. Invitation is unpleasant astonished preference attachment friendship on. Did sentiments increasing particular nay. Mr he recurred received prospect in. Wishing cheered parlors adapted am at amongst matters.\nConsider now provided laughter boy landlord dashwood. Often voice and the spoke. No shewing fertile village equally prepare up females as an. That do an case an what plan hour of paid. Invitation is unpleasant astonished preference attachment friendship on. Did sentiments increasing particular nay. Mr he recurred received prospect in. Wishing cheered parlors adapted am at amongst matters.Consider now provided laughter boy landlord dashwood. Often voice and the spoke. No shewing fertile village equally prepare up females as an. That do an case an what plan hour of paid. Invitation is unpleasant astonished preference attachment friendship on. Did sentiments increasing particular nay. Mr he recurred received prospect in. Wishing cheered parlors adapted am at amongst matters.\nConsider now provided laughter boy landlord dashwood. Often voice and the spoke. No shewing fertile village equally prepare up females as an. That do an case an what plan hour of paid. Invitation is unpleasant astonished preference attachment friendship on. Did sentiments increasing particular nay. Mr he recurred received prospect in. Wishing cheered parlors adapted am at amongst matters."
         capitalLabel.translatesAutoresizingMaskIntoConstraints = false
         capitalLabel.numberOfLines = 0
         
         contentView.addSubview(capitalLabel)
         
-        capitalLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        capitalLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        capitalLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
+        let contentGuide = contentView.readableContentGuide
+        capitalLabel.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor).isActive = true
+        capitalLabel.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor).isActive = true
+        capitalLabel.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 0).isActive = true
         capitalLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
     }
 

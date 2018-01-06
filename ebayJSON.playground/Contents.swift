@@ -82,7 +82,7 @@ struct Country {
 }
 
 struct ListOfCountries {
-    var listOfCountries: [Country]
+    private(set) var listOfCountries: [Country]
     
     init?(json: [[String: Any]]) {
         
